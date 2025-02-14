@@ -5,7 +5,6 @@ const recipeDetailsContent = document.querySelector(".recipe-details-content")
 const recipeCloseBtn = document.querySelector(".recipe-close-btn")
 
 // function to get recipes
-//search input is replaced by query
 const fetchRecipes = async(query) => {
     recipeContainer.innerHTML="<h2>Fetching Recipes ......</h2>";
    try {
@@ -14,7 +13,7 @@ const fetchRecipes = async(query) => {
     const response = await data.json();
 
     //console.log(response);
-    // the key name is `meal` as we got from running console.log
+    // the key of the object returned by MDN API  is `meal` as we got from running console.log
 
     recipeContainer.innerHTML=""
     response.meals.forEach(meal => {
@@ -59,17 +58,20 @@ const fetchingredients = (meal) => {
 }
 
 const openRecipePopup=(meal) => {
-    recipeDetailsContent.innerHTML=`
-    <h2 class="recipeName">${meal.strMeal}</h2>
-    <h3>Ingredients:</h3>
-    <ul class="ingredientList">${fetchingredients(meal)}</ul>
-    <div class="recipeInstructions">
-        <h3>Instruction:</h3>
-        <p>${meal.strInstruction}</p>
-    </div>
-`
-    
-    recipeDetailsContent.parentElement.style.display= "block";
+   const instructions = meal.strInstructions;
+
+    // 1. Convert newlines to <br> tags for HTML rendering
+    const formattedInstructions = instructions.replace(/\r\n/g, "<br>");
+
+    recipeDetailsContent.innerHTML = `
+        <h2 class="recipeName">${meal.strMeal}</h2>
+        <h3>Ingredients:</h3>
+        <ul class="ingredientList">${fetchingredients(meal)}</ul>
+        <div class="recipeInstructions">
+            <h3>Instruction:</h3>
+            <p>${formattedInstructions}</p> </div>`; // Use formatted instructions
+
+    recipeDetailsContent.parentElement.style.display = "block";
 };
 
 recipeCloseBtn.addEventListener("click",()=> {
