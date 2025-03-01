@@ -15,6 +15,6 @@ A Responsive web application for discovering recipes powered by TheMealDB API. S
 ## Installation & Usage 🚀
 1. Clone the repository:
    ```bash
-   git clone https://github.com/AhmedGannam/recipe-app.git
+   git clone https://github.com/AhmedGannam/Recipe-App-Using-API.git
 
 ## This app uses TheMealDB's free API to fetch recipe data. No API key required.
